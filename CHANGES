@@ -1,10 +1,18 @@
 HikariCP Changes
 
-Changes in 6.2.2
+Changes in 6.3.0
 
  * increase keepaliveTime variance from 10% to 20%
 
  * merged #2266 support duration values for configuration from properties, such as 10ms, 20s, 30m, 40h or 50d
+
+ * merged #2284 align logs from HikariPool.logPoolState()
+
+ * merged #2285 set default value for maxIdle in HikariConfig constructor (no functional change)
+
+ * merged #2294 Allow setting String[] and int[] properties (useful for pgjdbc HA configuration)
+
+ * merged #2300 catch java.lang.Error instead of java.lang.Exception under certain conditions
 
 Changes in 6.2.1
 
