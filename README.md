@@ -38,7 +38,7 @@ Fast, simple, reliable.  HikariCP is a "zero-overhead" production ready JDBC con
 
 ### Artifacts
 
-_**Java 11+** maven artifact:_
+_**Java 11 or greater** maven artifact:_
 ```xml
 <dependency>
    <groupId>com.zaxxer</groupId>
