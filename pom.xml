@@ -287,12 +287,6 @@
    </dependencies>
 
    <build>
-      <resources>
-         <resource>
-            <directory>target/classes</directory>
-         </resource>
-      </resources>
-
       <pluginManagement>
          <plugins>
             <plugin>
