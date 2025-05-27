@@ -75,11 +75,11 @@
 
    <distributionManagement>
       <repository>
-         <id>ossrh</id>
+         <id>ossrh-releases</id>
          <url>https://oss.sonatype.org/content/repositories/releases/</url>
       </repository>
       <snapshotRepository>
-         <id>ossrh-snapshots</id>
+         <id>ossrh</id>
          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
       </snapshotRepository>
    </distributionManagement>
