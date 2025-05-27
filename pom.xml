@@ -74,10 +74,14 @@
    </scm>
 
    <distributionManagement>
-      <snapshotRepository>
+      <repository>
+         <id>ossrh</id>
+         <url>https://oss.sonatype.org/content/repositories/releases/</url>
+      </repository>
+      <!--snapshotRepository>
          <id>ossrh</id>
          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-      </snapshotRepository>
+      </snapshotRepository-->
    </distributionManagement>
 
    <issueManagement>
