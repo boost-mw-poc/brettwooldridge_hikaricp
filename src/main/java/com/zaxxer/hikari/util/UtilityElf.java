@@ -24,8 +24,13 @@ import static java.lang.Thread.currentThread;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
+ * UtilityElf is a utility class that provides various helper methods
+ * for string manipulation, thread management, and JDBC URL handling.
+ * It includes methods for masking passwords in JDBC URLs, creating
+ * instances of classes, and creating thread pool executors.
  *
  * @author Brett Wooldridge
+ * @hidden
  */
 public final class UtilityElf
 {
@@ -42,8 +47,10 @@ public final class UtilityElf
    }
 
    /**
+    * Get a trimmed string or null if the string is null or empty.
     *
-    * @return null if string is null or empty, , trimmed string otherwise
+    * @param text the string to check
+    * @return null if string is null or empty, trimmed string otherwise
    */
    public static String getNullIfEmpty(final String text)
    {
@@ -189,6 +196,13 @@ public final class UtilityElf
       return -1;
    }
 
+   /**
+    * Custom RejectedExecutionHandler that does nothing when a task is rejected.
+    *
+    * @see java.util.concurrent.RejectedExecutionHandler
+    * @see java.util.concurrent.ThreadPoolExecutor
+    * @hidden
+    */
    public static class CustomDiscardPolicy implements RejectedExecutionHandler
    {
       @Override
@@ -196,6 +210,12 @@ public final class UtilityElf
       }
    }
 
+   /**
+    * Default ThreadFactory implementation that creates daemon threads with a specified name.
+    *
+    * @see java.util.concurrent.ThreadFactory
+    * @hidden
+    */
    public static final class DefaultThreadFactory implements ThreadFactory
    {
       private final String threadName;

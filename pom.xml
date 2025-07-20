@@ -60,6 +60,7 @@
    <name>HikariCP</name>
    <description>Ultimate JDBC Connection Pool</description>
    <url>https://github.com/brettwooldridge/HikariCP</url>
+   <inceptionYear>2013</inceptionYear>
 
    <organization>
       <name>Zaxxer.com</name>
@@ -287,12 +288,6 @@
    </dependencies>
 
    <build>
-      <resources>
-         <resource>
-            <directory>target/classes</directory>
-         </resource>
-      </resources>
-
       <pluginManagement>
          <plugins>
             <plugin>
@@ -369,18 +364,27 @@
             <plugin>
                <groupId>org.apache.maven.plugins</groupId>
                <artifactId>maven-javadoc-plugin</artifactId>
-               <version>3.6.0</version>
+               <version>3.11.2</version>
                <configuration>
                   <show>public</show>
-                  <excludePackageNames>
-                     com.zaxxer.hikari.hibernate:com.zaxxer.hikari.metrics.*:com.zaxxer.hikari.pool:com.zaxxer.hikari.util
-                  </excludePackageNames>
                   <attach>true</attach>
                   <maxmemory>1024m</maxmemory>
+                  <legacyMode>true</legacyMode>
+                  <sourceFileExcludes>
+                     <sourceFileExclude>**\/module-info.java</sourceFileExclude>
+                     <sourceFileExclude>**\/HikariConfigurationUtil.java</sourceFileExclude>
+                     <sourceFileExclude>**\/HikariConnectionProvider.java</sourceFileExclude>
+                     <sourceFileExclude>**\/Prometheus*Tracker.java</sourceFileExclude>
+                     <sourceFileExclude>**\/Micrometer*Tracker.java</sourceFileExclude>
+                     <sourceFileExclude>**\/Dropwizard*Tracker.java</sourceFileExclude>
+                     <sourceFileExclude>**\/Coda*Tracker.java</sourceFileExclude>
+                  </sourceFileExcludes>
+                  <disableSourcepathUsage>true</disableSourcepathUsage>
+                  <bottom><![CDATA[Copyright © {inceptionYear}–{currentYear} Brett Wooldridge. All rights reserved.]]></bottom>
                </configuration>
                <executions>
                   <execution>
-                     <id>bundle-sources</id>
+                     <id>attach-javadoc</id>
                      <phase>package</phase>
                      <goals>
                         <goal>jar</goal>
@@ -427,6 +431,11 @@
                   </configuration>
                </execution>
             </executions>
+         </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
          </plugin>
 
          <plugin>
@@ -663,20 +672,6 @@
                         <id>attach-sources</id>
                         <goals>
                            <goal>jar-no-fork</goal>
-                        </goals>
-                     </execution>
-                  </executions>
-               </plugin>
-
-               <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-javadoc-plugin</artifactId>
-                  <version>3.6.0</version>
-                  <executions>
-                     <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                           <goal>jar</goal>
                         </goals>
                      </execution>
                   </executions>
