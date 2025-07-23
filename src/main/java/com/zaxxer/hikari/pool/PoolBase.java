@@ -17,6 +17,7 @@
 package com.zaxxer.hikari.pool;
 
 import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariCredentialsProvider;
 import com.zaxxer.hikari.SQLExceptionOverride;
 import com.zaxxer.hikari.metrics.IMetricsTracker;
 import com.zaxxer.hikari.pool.HikariPool.PoolInitializationException;
@@ -67,6 +68,7 @@ abstract class PoolBase
    long validationTimeout;
 
    SQLExceptionOverride exceptionOverride;
+   HikariCredentialsProvider credentialsProvider;
 
    private static final String[] RESET_STATES = {"readOnly", "autoCommit", "isolation", "catalog", "netTimeout", "schema"};
    private static final int UNINITIALIZED = -1;
@@ -102,6 +104,7 @@ abstract class PoolBase
       this.isReadOnly = config.isReadOnly();
       this.isAutoCommit = config.isAutoCommit();
       this.exceptionOverride = config.getExceptionOverride();
+      this.credentialsProvider = config.getCredentialsProvider();
       this.transactionIsolation = UtilityElf.getTransactionIsolation(config.getTransactionIsolation());
 
       this.isQueryTimeoutSupported = UNINITIALIZED;
@@ -669,6 +672,10 @@ abstract class PoolBase
 
    private Credentials getCredentials()
    {
+      if (credentialsProvider != null) {
+         return credentialsProvider.getCredentials();
+      }
+
       var credentials = config.getCredentials();
       if (LEGACY_USERPASS_DS_OVERRIDE) {
          credentials = Credentials.of(config.getUsername(), config.getPassword());

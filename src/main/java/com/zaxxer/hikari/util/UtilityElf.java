@@ -16,6 +16,9 @@
 
 package com.zaxxer.hikari.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Locale;
 import java.util.concurrent.*;
 import java.util.regex.Pattern;
@@ -34,6 +37,12 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  */
 public final class UtilityElf
 {
+   private static final Logger LOGGER = LoggerFactory.getLogger(UtilityElf.class);
+
+   /**
+    * A pattern to match and mask passwords in JDBC URLs.
+    * It looks for the "password" parameter in the URL and replaces its value with "<masked>".
+    */
    private static final Pattern PASSWORD_MASKING_PATTERN = Pattern.compile("([?&;][^&#;=]*[pP]assword=)[^&#;]*");
 
    private UtilityElf()
@@ -88,6 +97,11 @@ public final class UtilityElf
       }
    }
 
+   public static <T> T createInstance(final String className, final Class<T> clazz)
+   {
+      return createInstance(className, clazz, new Object[0]);
+   }
+
    /**
     * Create and instance of the specified class using the constructor matching the specified
     * arguments.
@@ -105,7 +119,11 @@ public final class UtilityElf
       }
 
       try {
-         var loaded = UtilityElf.class.getClassLoader().loadClass(className);
+         var loaded = attemptFromContextLoader(className);
+         if (loaded == null) {
+            loaded = UtilityElf.class.getClassLoader().loadClass(className);
+            LOGGER.debug("Class {} loaded from classloader {}", className, UtilityElf.class.getClassLoader());
+         }
          var totalArgs = args.length;
 
          if (totalArgs == 0) {
@@ -120,7 +138,7 @@ public final class UtilityElf
          return clazz.cast(constructor.newInstance(args));
       }
       catch (Exception e) {
-         throw new RuntimeException(e);
+         throw new RuntimeException("Failed to load class " + className, e);
       }
    }
 
@@ -233,5 +251,25 @@ public final class UtilityElf
          thread.setDaemon(daemon);
          return thread;
       }
+   }
+
+   // ***********************************************************************
+   //                          Private methods
+   // ***********************************************************************
+
+   private static Class<?> attemptFromContextLoader(final String className) {
+      final var threadContextClassLoader = Thread.currentThread().getContextClassLoader();
+      if (threadContextClassLoader != null) {
+         try {
+            final var clazz = threadContextClassLoader.loadClass(className);
+            LOGGER.debug("Class {} found in Thread context class loader {}", className, threadContextClassLoader);
+            return clazz;
+         } catch (ClassNotFoundException e) {
+            LOGGER.debug("Class {} not found in Thread context class loader {}, trying classloader {}",
+               className, threadContextClassLoader, UtilityElf.class.getClassLoader());
+         }
+      }
+
+      return null;
    }
 }
