@@ -1,5 +1,12 @@
 HikariCP Changes
 
+Changes in 7.0.0
+
+ * merged #2340 NoSuchMethodException error that is thrown when setting a metric registry, fixes to UtilityElf
+   reflection code to use the correct method signature.
+
+ * fixed #1294 add support for HikariCredentialsProvider class
+
 Changes in 6.3.2
 
  * fixed #2342 restore module-info.class to jar file, which was lost in 6.3.1
