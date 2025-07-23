@@ -31,7 +31,7 @@
 
       <commons.csv.version>1.12.0</commons.csv.version>
       <docker.maven.plugin.fabric8.version>0.45.0</docker.maven.plugin.fabric8.version>
-      <felix.bundle.plugin.version>5.1.1</felix.bundle.plugin.version>
+      <felix.bundle.plugin.version>5.1.9</felix.bundle.plugin.version>
       <felix.version>7.0.5</felix.version>
       <h2.version>2.3.232</h2.version>
       <hibernate.version>5.4.24.Final</hibernate.version>
@@ -608,7 +608,7 @@
                      com.zaxxer.hikari.metrics.prometheus
                   </Export-Package>
                   <Private-Package>com.zaxxer.hikari.*</Private-Package>
-                  <!-- Include-Resource>{maven-resources}</Include-Resource -->
+                  <Include-Resource>target/classes/module-info.class</Include-Resource>
                   <_exportcontents>
                      com.zaxxer.hikari.pool,
                      com.zaxxer.hikari.util
