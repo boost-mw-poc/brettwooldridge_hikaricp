@@ -7,6 +7,8 @@ Changes in 7.0.0
 
  * fixed #1294 add support for HikariCredentialsProvider class
 
+ * fixed #2265 bail out of the pool filling loop if the thread is interrupted
+
 Changes in 6.3.2
 
  * fixed #2342 restore module-info.class to jar file, which was lost in 6.3.1
