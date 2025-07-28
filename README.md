@@ -431,10 +431,8 @@ Please read the [Rapid Recovery Guide](https://github.com/brettwooldridge/Hikari
 
 ### :see_no_evil: Secret Properties
 
-HikariCP has several Java system properties that control various aspects of the pool. These properties are *completely unsupported*
-for user manipulation. It is possible though unlikely that they may not exist in the future. This means: do not even think of opening
-an issue of any kind if you have modified these properties. You have been warned. *In fact, pretend you never heard anything about
-"secret properties".*
+HikariCP has several Java system properties that control various aspects of the pool. These properties are *unsupported*
+for user manipulation. It is possible though unlikely that they may not exist in the future. This means: do not open an issue of any kind if you have modified these properties. *Pretend you never heard anything about "secret properties".*
 
 | Property                                      | Description                                                                                                                                                                                                                                       |
 |:----------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -444,7 +442,7 @@ an issue of any kind if you have modified these properties. You have been warned
 | ``com.zaxxer.hikari.legacy.supportUserPassDataSourceOverride`` | When this property is set ``true``, HikariCP will support the legacy behavior of overriding the ``getUsername()/getPassword()`` methods on *HikariDataSource*. Preferred method is overriding ``getCredentials()``.             |
 | ``com.zaxxer.hikari.useWeakReferences``       | When this property is set ``true`` it will force HikariCP to use ``WeakReference`` objects in the ``ConcurrentBag`` internal collection ThreadLocals and prevent the use of our ``FastList`` class, all to avoid TomCat warnings during redeploy. |
 
-Seriously, either don't use these properties or take on full responsibility for the consequences.
+Either don't use these properties or take on full responsibility for the consequences.
 
 ### :rocket: Initialization
 
