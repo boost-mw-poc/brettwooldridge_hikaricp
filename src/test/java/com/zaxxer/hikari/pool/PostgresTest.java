@@ -107,6 +107,21 @@ public class PostgresTest
    }
 
    @Test
+   public void testPgsqlJdbcUrl()
+   {
+      HikariConfig config = newHikariConfig();
+      config.setJdbcUrl(postgres.getJdbcUrl());
+      config.setUsername(postgres.getUsername());
+      config.setPassword(postgres.getPassword());
+      config.setMinimumIdle(3);
+      config.setMaximumPoolSize(10);
+      config.setConnectionTimeout(1000);
+      config.setIdleTimeout(SECONDS.toMillis(20));
+
+      exerciseConfig(config, 3);
+   }
+
+   @Test
    public void testCredentialRotation()
    {
       HikariConfig config = createConfig(postgres);
