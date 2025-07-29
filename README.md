@@ -3,7 +3,7 @@
 [![][Build Status img]][Build Status]
 [![][Coverage Status img]][Coverage Status]
 [![][license img]][license]
-[![][Maven Central img]][Maven Central]
+![Maven Central Version](https://img.shields.io/maven-central/v/com.zaxxer/HikariCP?label=maven%20central&link=https%3A%2F%2Fcentral.sonatype.com%2Fartifact%2Fcom.zaxxer%2FHikariCP)
 [![][Javadocs img]][Javadocs]
 [![][Librapay img]][Librapay]
 
@@ -583,9 +583,6 @@ Please perform changes and submit pull requests from the ``dev`` branch instead 
 
 [license]:LICENSE
 [license img]:https://img.shields.io/badge/license-Apache%202-blue.svg
-
-[Maven Central]:https://maven-badges.herokuapp.com/maven-central/com.zaxxer/HikariCP
-[Maven Central img]:https://maven-badges.herokuapp.com/maven-central/com.zaxxer/HikariCP/badge.svg
 
 [Javadocs]:http://javadoc.io/doc/com.zaxxer/HikariCP
 [Javadocs img]:http://javadoc.io/badge/com.zaxxer/HikariCP.svg
