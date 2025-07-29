@@ -187,11 +187,11 @@ public class ConcurrentBag<T extends IConcurrentBagEntry> implements AutoCloseab
    {
       bagEntry.setState(STATE_NOT_IN_USE);
 
-      for (var i = 0; waiters.get() > 0; i++) {
+      for (int i = 1, waiting = waiters.get(); waiting > 0; i++, waiting = waiters.get()) {
          if (bagEntry.getState() != STATE_NOT_IN_USE || handoffQueue.offer(bagEntry)) {
             return;
          }
-         else if ((i & 0xff) == 0xff) {
+         else if ((i & 0xff) == 0xff || (waiting > 1 && i % waiting == 0)) {
             parkNanos(MICROSECONDS.toNanos(10));
          }
          else {
