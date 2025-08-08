@@ -1,5 +1,11 @@
 HikariCP Changes
 
+Changes in 7.0.1
+
+ * merged #2346 fix regression with setSchema behavior
+
+ * decrease thread yield frequency in ConcurrentBag.requite()
+
 Changes in 7.0.0
 
  * merged #2340 NoSuchMethodException error that is thrown when setting a metric registry, fixes to UtilityElf
