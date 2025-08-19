@@ -1,5 +1,9 @@
 HikariCP Changes
 
+Changes in 7.0.2
+
+ * decrease thread yield frequency in ConcurrentBag.unreserve()
+
 Changes in 7.0.1
 
  * merged #2346 fix regression with setSchema behavior

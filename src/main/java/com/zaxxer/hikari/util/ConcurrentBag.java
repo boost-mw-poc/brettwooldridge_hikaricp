@@ -57,6 +57,7 @@ import static java.util.concurrent.locks.LockSupport.parkNanos;
  * @param <T> the templated type to store in the bag
  * @hidden
  */
+@SuppressWarnings("DuplicatedCode")
 public class ConcurrentBag<T extends IConcurrentBagEntry> implements AutoCloseable
 {
    private static final Logger LOGGER = LoggerFactory.getLogger(ConcurrentBag.class);
@@ -318,8 +319,16 @@ public class ConcurrentBag<T extends IConcurrentBagEntry> implements AutoCloseab
    {
       if (bagEntry.compareAndSet(STATE_RESERVED, STATE_NOT_IN_USE)) {
          // spin until a thread takes it or none are waiting
-         while (waiters.get() > 0 && bagEntry.getState() == STATE_NOT_IN_USE && !handoffQueue.offer(bagEntry)) {
-            Thread.yield();
+         for (int i = 1, waiting = waiters.get(); waiting > 0; i++, waiting = waiters.get()) {
+            if (bagEntry.getState() != STATE_NOT_IN_USE || handoffQueue.offer(bagEntry)) {
+               return;
+            }
+            else if ((i & 0xff) == 0xff || (waiting > 1 && i % waiting == 0)) {
+               parkNanos(MICROSECONDS.toNanos(10));
+            }
+            else {
+               Thread.yield();
+            }
          }
       }
       else {
