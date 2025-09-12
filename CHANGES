@@ -19,6 +19,11 @@ Changes in 7.0.0
 
  * fixed #2265 bail out of the pool filling loop if the thread is interrupted
 
+Changes in 6.3.3
+
+ * backport #2340 NoSuchMethodException error that is thrown when setting a metric registry, fixes to UtilityElf
+   reflection code to use the correct method signature.
+
 Changes in 6.3.2
 
  * fixed #2342 restore module-info.class to jar file, which was lost in 6.3.1
