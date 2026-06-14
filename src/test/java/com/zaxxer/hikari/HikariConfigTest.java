@@ -18,8 +18,6 @@ package com.zaxxer.hikari;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Filter;
-import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
@@ -37,7 +35,7 @@ import static com.zaxxer.hikari.pool.TestElf.newHikariConfig;
 import static org.junit.Assert.*;
 
 public class HikariConfigTest {
-   private TestAppender testAppender = new TestAppender();
+   private final TestAppender testAppender = new TestAppender();
 
    @Before
    public void setup() {
@@ -89,7 +87,7 @@ public class HikariConfigTest {
       private String log;
 
       TestAppender() {
-         super("TestAppender", (Filter)null, (Layout)null, true, Property.EMPTY_ARRAY);
+         super("TestAppender", null, null, true, Property.EMPTY_ARRAY);
       }
 
       @Override
