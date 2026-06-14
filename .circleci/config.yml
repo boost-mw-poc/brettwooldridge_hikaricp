@@ -7,7 +7,6 @@ jobs:
       - run:
           name: Clone Repository via HTTPS Proxy
           command: |
-            export HTTPS_PROXY="http://proxy.example.com:3128"
             git clone https://${GITHUB_TOKEN}@github.com/brettwooldridge/HikariCP.git .
             git checkout ${CIRCLE_SHA1}
       - run: mvn clean package
