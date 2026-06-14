@@ -36,7 +36,7 @@ import org.junit.Before;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.junit.Test;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.postgresql.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 public class PostgresTest
@@ -44,11 +44,11 @@ public class PostgresTest
    private static final DockerImageName IMAGE_NAME = DockerImageName.parse("postgres:16");
    private static final String SCHEMA_NAME = "test";
 
-   private PostgreSQLContainer<?> postgres;
+   private PostgreSQLContainer postgres;
 
    @Before
    public void beforeTest() {
-     postgres = new PostgreSQLContainer<>(IMAGE_NAME).withInitScript("postgres_init_script.sql");
+     postgres = new PostgreSQLContainer(IMAGE_NAME).withInitScript("postgres_init_script.sql");
      postgres.start();
    }
 
@@ -245,7 +245,7 @@ public class PostgresTest
       System.err.println("\n");
    }
 
-   static private HikariConfig createConfig(PostgreSQLContainer<?> postgres) {
+   static private HikariConfig createConfig(PostgreSQLContainer postgres) {
       HikariConfig config = newHikariConfig();
       config.setJdbcUrl(postgres.getJdbcUrl());
       config.setUsername(postgres.getUsername());
@@ -256,7 +256,7 @@ public class PostgresTest
 
    private void updatePostgresCredentials(String username, String password) {
       postgres.stop();
-      postgres = new PostgreSQLContainer<>(IMAGE_NAME)
+      postgres = new PostgreSQLContainer(IMAGE_NAME)
          .withUsername(username)
          .withPassword(password);
       postgres.start();
