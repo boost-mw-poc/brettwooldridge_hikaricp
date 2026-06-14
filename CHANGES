@@ -1,5 +1,10 @@
 HikariCP Changes
 
+Changes in 7.1.0
+
+ * merged #2402 avoid virtual-thread yield spin in ConcurrentBag. Thanks to @ittaigolde for addressing this and deep
+   investigation into the issue.
+
 Changes in 7.0.2
 
  * decrease thread yield frequency in ConcurrentBag.unreserve()
